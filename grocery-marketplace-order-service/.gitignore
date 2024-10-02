@@ -1,0 +1,47 @@
+# Kotlin specific
+*.class
+*.kt~
+*.kts~
+
+# Maven specific
+target/
+*.log
+!.mvn/wrapper/maven-wrapper.jar
+**/mvnw
+**/mvnw.cmd
+**/.mvn
+# Ignore dependency resolution artifacts
+**/dependency-reduced-pom.xml
+# Ignore Eclipse config
+**/.settings
+# Ignore Eclipse Core files
+**/.project
+**/.classpath
+
+# IntelliJ IDEA files
+.idea/
+*.iml
+*.iws
+.idea/*
+
+# VS Code files
+.vscode/
+
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Maven wrapper
+.mvn/wrapper/maven-wrapper.jar
+
+# Log files
+*.log
+
+# Build directory
+target/
+build/
+
