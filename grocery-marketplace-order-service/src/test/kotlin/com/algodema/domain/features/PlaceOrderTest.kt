@@ -1,6 +1,7 @@
 package com.algodema.domain.features
 
 import com.algodema.grocery.marketplace.orderservice.domain.features.PlaceOrderFeature
+import com.algodema.grocery.marketplace.orderservice.domain.models.order.InsufficientOrderQuantityException
 import com.algodema.grocery.marketplace.orderservice.domain.models.order.OrderState
 import com.algodema.grocery.marketplace.orderservice.domain.models.product.ProductId
 import com.algodema.grocery.marketplace.orderservice.domain.models.provider.ProviderId
@@ -13,14 +14,27 @@ class PlaceOrderTest {
     private val placeOrder = PlaceOrderFeature()
 
     @Test
-    fun `should not place order with quantity lower than 20`() {
+    fun `should throw exception with quantity lower than 20`() {
 
         val productId: ProductId = ProductId(UUID.randomUUID())
         val providerId: ProviderId = ProviderId(UUID.randomUUID())
         val quantity: Int = 16
 
+        Assertions.assertThrowsExactly(InsufficientOrderQuantityException::class.java) {
+            placeOrder.invoke(productId, providerId, quantity)
+        }
+    }
+
+    @Test
+    fun `should place order with initial state PLACED`() {
+
+        val productId: ProductId = ProductId(UUID.randomUUID())
+        val providerId: ProviderId = ProviderId(UUID.randomUUID())
+        val quantity: Int = 50
+
         val orderCreated = placeOrder.invoke(productId, providerId, quantity)
 
         Assertions.assertEquals(orderCreated.state, OrderState.PLACED)
     }
+
 }
