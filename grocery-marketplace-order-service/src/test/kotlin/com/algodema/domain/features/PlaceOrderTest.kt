@@ -1,17 +1,20 @@
 package com.algodema.domain.features
 
-import com.algodema.grocery.marketplace.orderservice.domain.features.PlaceOrderFeature
+import com.algodema.grocery.marketplace.orderservice.domain.features.PlaceOrder
 import com.algodema.grocery.marketplace.orderservice.domain.models.order.InsufficientOrderQuantityException
 import com.algodema.grocery.marketplace.orderservice.domain.models.order.OrderState
 import com.algodema.grocery.marketplace.orderservice.domain.models.product.ProductId
 import com.algodema.grocery.marketplace.orderservice.domain.models.provider.ProviderId
+import com.algodema.grocery.marketplace.orderservice.domain.ports.outbound.OrderRepository
+import com.algodema.grocery.marketplace.orderservice.infrastructure.spi.InMemoryOrderRepository
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import java.util.*
 
 class PlaceOrderTest {
 
-    private val placeOrder = PlaceOrderFeature()
+    private val orderRepository: OrderRepository = InMemoryOrderRepository()
+    private val placeOrder = PlaceOrder(orderRepository)
 
     @Test
     fun `should throw exception with quantity lower than 20`() {
